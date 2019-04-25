@@ -1,12 +1,10 @@
 $(function() {
     $('#js-shopping-list-form').submit(function(event) {
         event.preventDefault();
-        const userTextInput = $(this).find('#shopping-list-entry');
-        // empty #shopping-list-entry
-
+        const userTextInput = $(this).find('#shopping-list-entry')
         $('ul').append(
             `<li>
-                <span class="shopping-item">${userTextInput}</span>
+                <span class="shopping-item">${userTextInput.val()}</span>
                 <div class="shopping-item-controls">
                 <button class="shopping-item-toggle">
                     <span class="button-label">check</span>
@@ -17,9 +15,14 @@ $(function() {
                 </div>
             </li>`
         );
+        userTextInput.val("");
     });
 
-    $('li').on('click', '.shopping-item-delete', function(event) {
+    $('ul').on('click', '.shopping-item-delete', function(event) {
         $(this).parentsUntil("ul").remove();
+    });
+
+    $('ul').on('click', '.shopping-item-toggle', function(event) {
+        $(this).closest("li").find('.shopping-item').toggleClass("shopping-item__checked");
     });
 });
